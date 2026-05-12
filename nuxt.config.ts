@@ -15,5 +15,5 @@ export default defineNuxtConfig({
       },
     },
   },
-  modules: ['@nuxtjs/google-fonts', '@nuxtjs/tailwindcss', 'nuxt-auth-utils'],
+  modules: ['@nuxtjs/google-fonts', '@nuxtjs/tailwindcss', 'nuxt-auth-utils', 'nuxt-mongoose'],
 })
