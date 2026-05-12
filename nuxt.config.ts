@@ -2,5 +2,18 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/google-fonts', '@nuxtjs/tailwindcss']
+  runtimeConfig: {
+    oauth: {
+      strava: {
+        scope: 'read,activity:read_all',
+      },
+    },
+    session: {
+      cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax' as const,
+      },
+    },
+  },
+  modules: ['@nuxtjs/google-fonts', '@nuxtjs/tailwindcss', 'nuxt-auth-utils'],
 })
