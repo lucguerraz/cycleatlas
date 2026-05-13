@@ -5,5 +5,5 @@ definePageMeta({
 </script>
 
 <template>
-  <AppSidebar>Rides</AppSidebar>
+  <AppSidebar>Stats</AppSidebar>
 </template>
