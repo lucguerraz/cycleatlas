@@ -25,21 +25,25 @@ const { data: activities } = await useFetch<Activity[]>('/api/activities')
             </p>
             <p class="flex items-center gap-1 text-base font-medium text-gray-700">
               <LucideRoute :size="16" :strokeWidth="2.2" />
-              <span>{{
-                (activity.distance / 1000).toLocaleString('de-CH', {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 2,
-                })
-              }}</span>
+              <span
+                >{{
+                  (activity.distance / 1000).toLocaleString('de-CH', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2,
+                  })
+                }}km</span
+              >
             </p>
             <p class="flex items-center gap-1 text-base font-medium text-gray-700">
               <LucideMountain :size="16" :strokeWidth="2.2" />
-              <span>{{
-                activity.total_elevation_gain.toLocaleString('de-CH', {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 2,
-                })
-              }}</span>
+              <span
+                >{{
+                  activity.total_elevation_gain.toLocaleString('de-CH', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2,
+                  })
+                }}m</span
+              >
             </p>
           </div>
         </NuxtLink>
