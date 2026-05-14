@@ -9,6 +9,9 @@ dist
 # Node dependencies
 node_modules
 
+# MongoDB files
+.mongodb
+
 # Logs
 logs
 *.log
