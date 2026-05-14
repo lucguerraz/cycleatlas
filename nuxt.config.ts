@@ -14,6 +14,9 @@ export default defineNuxtConfig({
         sameSite: 'lax' as const,
       },
     },
+    public: {
+      tiler_api_key: process.env.NUXT_PUBLIC_TILER_API_KEY,
+    },
   },
-  modules: ['@nuxtjs/google-fonts', '@nuxtjs/tailwindcss', 'nuxt-auth-utils', 'nuxt-mongoose'],
+  modules: ['@nuxtjs/google-fonts', '@nuxtjs/tailwindcss', 'nuxt-auth-utils', 'nuxt-mongoose', 'nuxt-maplibre'],
 })
