@@ -6,7 +6,13 @@ definePageMeta({
   layout: 'map',
 })
 
+const bus = useEventBus()
+
 const { data: activities } = await useFetch<Activity[]>('/api/activities')
+
+const handleClick = (id: number) => {
+  bus.emit('map-zoom-into-view', { id })
+}
 </script>
 
 <template>
@@ -16,6 +22,7 @@ const { data: activities } = await useFetch<Activity[]>('/api/activities')
         <NuxtLink
           :to="{ name: 'ride-id', params: { id: activity.stravaid } }"
           class="flex flex-col gap-1.5 rounded-lg bg-white p-4 hover:bg-slate-50"
+          @click="handleClick(activity.stravaid)"
         >
           <h2 class="text-xl">{{ activity.name }}</h2>
           <div class="flex gap-3">
