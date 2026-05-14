@@ -19,11 +19,11 @@ const { data: activities } = await useFetch<Activity[]>('/api/activities')
         >
           <h2 class="text-xl">{{ activity.name }}</h2>
           <div class="flex gap-3">
-            <p class="flex items-center gap-1 text-base font-medium text-gray-700">
+            <p class="flex items-center gap-1 text-base font-medium text-gray-500">
               <LucideCalendar :size="16" :strokeWidth="2.2" />
               <span>{{ new Date(activity.start_date).toLocaleDateString('de-CH', { weekday: undefined }) }}</span>
             </p>
-            <p class="flex items-center gap-1 text-base font-medium text-gray-700">
+            <p class="flex items-center gap-1 text-base font-medium text-gray-500">
               <LucideRoute :size="16" :strokeWidth="2.2" />
               <span
                 >{{
@@ -34,7 +34,7 @@ const { data: activities } = await useFetch<Activity[]>('/api/activities')
                 }}km</span
               >
             </p>
-            <p class="flex items-center gap-1 text-base font-medium text-gray-700">
+            <p class="flex items-center gap-1 text-base font-medium text-gray-500">
               <LucideMountain :size="16" :strokeWidth="2.2" />
               <span
                 >{{
