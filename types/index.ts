@@ -22,5 +22,14 @@ export interface Activity {
   average_watts: number
   average_heartrate: number
   geojson: GeoJSON.GeoJSON
-  countries: object
+  countries: {
+    [key: string]: {
+      regions: {
+        [key: string]: {
+          distance: number
+        }
+      }
+      distance: number
+    }
+  }
 }
