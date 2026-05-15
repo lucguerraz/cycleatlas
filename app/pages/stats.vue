@@ -3,12 +3,18 @@ import type { Stats } from '~~/types'
 import { LucideRoute, LucideMountain, LucideTimer, LucideBike } from '@lucide/vue'
 
 import countriesData from '@/assets/dictionaries/countries.json'
+import regionsAT from '@/assets/dictionaries/regions/at.json'
 import regionsCH from '@/assets/dictionaries/regions/ch.json'
+import regionsDE from '@/assets/dictionaries/regions/de.json'
 import regionsFR from '@/assets/dictionaries/regions/fr.json'
+import regionsIT from '@/assets/dictionaries/regions/it.json'
 const countries = countriesData as { [key: string]: string }
 const regions = {
+  AT: regionsAT,
   CH: regionsCH,
+  DE: regionsDE,
   FR: regionsFR,
+  IT: regionsIT,
 } as { [key: string]: { [key: string]: string } }
 
 definePageMeta({
