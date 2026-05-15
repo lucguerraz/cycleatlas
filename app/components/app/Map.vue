@@ -26,6 +26,15 @@ const paint = {
   'line-width': 2,
 }
 
+watch(
+  () => route.name,
+  (newName, oldName) => {
+    if (['index', 'stats'].includes(newName as string)) {
+      fitBoundsAll()
+    }
+  }
+)
+
 onMounted(() => bus.on('map-zoom-into-view', handleZoom))
 onBeforeUnmount(() => bus.off('map-zoom-into-view', handleZoom))
 const handleZoom = (payload: any) => {
