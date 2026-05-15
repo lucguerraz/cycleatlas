@@ -14,8 +14,8 @@ const { data: activities } = await useFetch<Activity[]>('/api/activities')
 const style =
   'https://api.maptiler.com/maps/019e2251-1abd-7d34-b750-9d36b8c36cfd/style.json?key=' + config.public.tiler_api_key
 
-const center = { lon: 9.3355, lat: 46.7754 }
-const zoom = 7.4
+const center = { lon: 16.3355, lat: 46.7754 }
+const zoom = 4
 
 const layout = {
   'line-join': 'round',
@@ -29,39 +29,65 @@ const paint = {
 onMounted(() => bus.on('map-zoom-into-view', handleZoom))
 onBeforeUnmount(() => bus.off('map-zoom-into-view', handleZoom))
 const handleZoom = (payload: any) => {
-  fitboundsmap(payload.id)
+  fitBoundsActivity(payload.id)
 }
 
 const handleClick = async (e: any) => {
   const stravaid = e.features[0].layer.id.split('_')[0]
   if (!stravaid) return
 
-  fitboundsmap(stravaid)
+  fitBoundsActivity(stravaid)
   await navigateTo('/ride/' + stravaid)
 }
 
 const handleLoad = () => {
-  if (route.name !== 'ride-id') return
-  const stravaid = route.path.split('/')[2]
-  if (stravaid) fitboundsmap(stravaid)
+  if (route.name === 'ride-id') {
+    const stravaid = route.path.split('/')[2]
+    if (stravaid) fitBoundsActivity(stravaid)
+    return
+  }
+
+  fitBoundsAll()
 }
 
-const fitboundsmap = (stravaid: string) => {
+const fitBoundsAll = () => {
+  const allFeatures = activities.value?.reduce(
+    (prev, activity) => {
+      prev.features.push((activity.geojson as any).features[0])
+      return prev
+    },
+    {
+      type: 'FeatureCollection',
+      features: [],
+    } as { type: string; features: Array<object> }
+  ) as GeoJSON.GeoJSON
+
+  fitBoundsMap(allFeatures)
+}
+
+const fitBoundsActivity = (stravaid: string) => {
   const activity = activities.value?.find((elem) => elem.stravaid === parseInt(stravaid))
 
   if (!activity) return
 
-  const bbox = turf.bbox(activity.geojson)
-  let [minX, minY, maxX, maxY] = bbox
-  minX = minX + 0.075 // offset for the sidebar
-  maxX = maxX + 0.075
+  fitBoundsMap(activity.geojson)
+}
+
+const fitBoundsMap = (geojson: GeoJSON.GeoJSON) => {
+  const bbox = turf.bbox(geojson)
+
   const bounds = [
-    [minX, minY], // SW corner
-    [maxX, maxY], // NE corner
+    [bbox[0], bbox[1]], // SW corner
+    [bbox[2], bbox[3]], // NE corner
   ] as LngLatBoundsLike
 
   mapRef.map?.fitBounds(bounds, {
-    padding: 120,
+    padding: {
+      top: document.documentElement.clientWidth / 15,
+      bottom: document.documentElement.clientWidth / 15,
+      left: document.documentElement.clientWidth / 15,
+      right: document.documentElement.clientWidth / 3.8461538462 + 24 + document.documentElement.clientWidth / 18,
+    },
     maxZoom: 14,
     animate: true,
   })
