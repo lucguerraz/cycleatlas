@@ -53,8 +53,8 @@ const fitboundsmap = (stravaid: string) => {
 
   const bbox = turf.bbox(activity.geojson)
   let [minX, minY, maxX, maxY] = bbox
-  minX = minX + 0.1 // offset for the sidebar
-  maxX = maxX + 0.1
+  minX = minX + 0.075 // offset for the sidebar
+  maxX = maxX + 0.075
   const bounds = [
     [minX, minY], // SW corner
     [maxX, maxY], // NE corner
