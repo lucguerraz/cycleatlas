@@ -3,6 +3,7 @@
 <template>
   <div>
     <NuxtRouteAnnouncer />
+    <NuxtLoadingIndicator color="#0CBACD" />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
