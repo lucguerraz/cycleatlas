@@ -25,5 +25,6 @@ export default defineNuxtConfig({
     'nuxt-mongoose',
     'nuxt-maplibre',
     'nuxt-lucide-icons',
+    'nuxt-processor',
   ],
 })

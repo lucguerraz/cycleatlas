@@ -1,3 +1,5 @@
+import queue from '#server/queues/processInitialActivities'
+
 export default defineOAuthStravaEventHandler({
   async onSuccess(event, { user, tokens }) {
     await setUserSession(event, {
@@ -23,7 +25,10 @@ export default defineOAuthStravaEventHandler({
         access_token: tokens.access_token,
         expires_at: tokens.expires_at,
         refresh_token: tokens.refresh_token,
+        processing_intital_data: true,
       }).save()
+
+      await queue.add('processInitialActivities', { athleteStravaId: user.id })
     }
 
     return sendRedirect(event, '/')

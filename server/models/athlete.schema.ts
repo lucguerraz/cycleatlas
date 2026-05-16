@@ -21,5 +21,8 @@ export const AthleteSchema = defineMongooseModel({
     refresh_token: {
       type: String,
     },
+    processing_intital_data: {
+      type: Boolean,
+    },
   },
 })

@@ -21,7 +21,7 @@ export interface Activity {
   average_cadence: number
   average_watts: number
   average_heartrate: number
-  geojson: GeoJSON.GeoJSON
+  geojson: ActivityFeatureCollection
   countries: Countries
 }
 
@@ -36,11 +36,27 @@ export interface Stats {
 
 export interface Countries {
   [key: string]: {
-    regions: {
-      [key: string]: {
-        distance: number
-      }
-    }
+    regions:
+      | {
+          [key: string]: {
+            distance: number
+          }
+        }
+      | undefined
     distance: number
   }
+}
+
+export type ActivityFeature = GeoJSON.Feature<GeoJSON.LineString, { name: string; time: string[]; elevation: number[] }>
+export type ActivityFeatureCollection = GeoJSON.FeatureCollection<
+  GeoJSON.LineString,
+  { name: string; time: string[]; elevation: number[] }
+>
+
+export interface Athlete {
+  stravaid: number
+  name: string
+  access_token: string
+  expires_at: number
+  refresh_token: string
 }
