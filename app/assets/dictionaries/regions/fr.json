@@ -11,5 +11,10 @@
   "NAQ": "Nouvelle-Aquitaine",
   "OCC": "Occitanie",
   "PDL": "Pays-de-la-Loire",
-  "PAC": "Provence-Alpes-Côte-d’Azur"
+  "PAC": "Provence-Alpes-Côte-d’Azur",
+  "GP": "Guadeloupe",
+  "MQ": "Martinique",
+  "GF": "Guyane",
+  "RE": "La Réunion",
+  "YT": "Mayotte"
 }
