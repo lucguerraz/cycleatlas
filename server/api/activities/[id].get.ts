@@ -1,8 +1,12 @@
+import { getInclusionsFromParam } from '#server/utils/activityInclusionsFromParam'
+
 export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)
 
+  const inclusion = getInclusionsFromParam(event)
+
   try {
-    const activity = await ActivitySchema.findOne({ stravaid: event.context.params?.id, athleteid: user.id })
+    const activity = await ActivitySchema.findOne({ stravaid: event.context.params?.id, athleteid: user.id }, inclusion)
     if (!activity) {
       throw createError({
         statusCode: 404,

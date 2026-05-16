@@ -24,7 +24,11 @@ definePageMeta({
 
 const route = useRoute()
 const id = computed(() => route.params.id)
-const { data: activity, pending, error } = await useFetch<Activity>('/api/activities/' + id.value)
+const {
+  data: activity,
+  pending,
+  error,
+} = await useFetch<Activity>(`/api/activities/${id.value}?fields=metadata,teritorydata`)
 </script>
 
 <template>

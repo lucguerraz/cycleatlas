@@ -11,7 +11,7 @@ const mapRef = useMap()
 
 const antsLayerRef = ref('')
 
-const { data: activities } = await useFetch<Activity[]>('/api/activities')
+const { data: activities } = await useFetch<Activity[]>('/api/activities?fields=geodata')
 
 const style =
   'https://api.maptiler.com/maps/019e2251-1abd-7d34-b750-9d36b8c36cfd/style.json?key=' + config.public.tiler_api_key
