@@ -18,6 +18,13 @@ export default defineNuxtConfig({
       tiler_api_key: process.env.NUXT_PUBLIC_TILER_API_KEY,
     },
   },
+  googleFonts: {
+    families: {
+      Inter: '300..600',
+    },
+    preload: true,
+    display: 'swap',
+  },
   modules: [
     '@nuxtjs/google-fonts',
     '@nuxtjs/tailwindcss',
