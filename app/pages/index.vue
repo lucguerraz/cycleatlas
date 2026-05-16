@@ -45,10 +45,12 @@ const handleClick = (id: number) => {
               <LucideRoute :size="16" :strokeWidth="2.2" />
               <span
                 >{{
-                  (activity.distance / 1000).toLocaleString('de-CH', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 2,
-                  })
+                  (activity.distance / 1000)
+                    .toLocaleString('de-CH', {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })
+                    .replace("'", '’')
                 }}km</span
               >
             </p>
@@ -56,10 +58,12 @@ const handleClick = (id: number) => {
               <LucideMountain :size="16" :strokeWidth="2.2" />
               <span
                 >{{
-                  activity.total_elevation_gain.toLocaleString('de-CH', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 2,
-                  })
+                  activity.total_elevation_gain
+                    .toLocaleString('de-CH', {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })
+                    .replace("'", '’')
                 }}m</span
               >
             </p>

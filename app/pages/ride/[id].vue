@@ -66,17 +66,21 @@ const {
         <div class="grid grid-cols-2 gap-3">
           <PagesRideStatCard name="Distance" :icon="LucideRoute">
             {{
-              ((activity?.distance || 0) / 1000).toLocaleString('de-CH', {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 2,
-              })
+              ((activity?.distance || 0) / 1000)
+                .toLocaleString('de-CH', {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })
+                .replace("'", '’')
             }}km
           </PagesRideStatCard>
           <PagesRideStatCard name="Elevation" :icon="LucideMountain">
             {{
-              activity?.total_elevation_gain.toLocaleString('de-CH', {
-                maximumFractionDigits: 0,
-              })
+              activity?.total_elevation_gain
+                .toLocaleString('de-CH', {
+                  maximumFractionDigits: 0,
+                })
+                .replace("'", '’')
             }}m
           </PagesRideStatCard>
           <PagesRideStatCard name="Moving time" :icon="LucideTimer">
@@ -85,23 +89,29 @@ const {
           </PagesRideStatCard>
           <PagesRideStatCard name="Avg. Speed" :icon="LucideGauge">
             {{
-              ((activity?.average_speed || 0) * 3.6).toLocaleString('de-CH', {
-                maximumFractionDigits: 1,
-              })
+              ((activity?.average_speed || 0) * 3.6)
+                .toLocaleString('de-CH', {
+                  maximumFractionDigits: 1,
+                })
+                .replace("'", '’')
             }}km/h
           </PagesRideStatCard>
           <PagesRideStatCard name="Avg. Power" :icon="LucideZap">
             {{
-              activity?.average_watts.toLocaleString('de-CH', {
-                maximumFractionDigits: 0,
-              })
+              activity?.average_watts
+                .toLocaleString('de-CH', {
+                  maximumFractionDigits: 0,
+                })
+                .replace("'", '’')
             }}w
           </PagesRideStatCard>
           <PagesRideStatCard name="Avg. Heartrate" :icon="LucideHeart">
             {{
-              activity?.average_heartrate.toLocaleString('de-CH', {
-                maximumFractionDigits: 0,
-              })
+              activity?.average_heartrate
+                .toLocaleString('de-CH', {
+                  maximumFractionDigits: 0,
+                })
+                .replace("'", '’')
             }}bpm
           </PagesRideStatCard>
         </div>
@@ -116,10 +126,12 @@ const {
               </span>
               <span class="text-base text-gray-500">
                 {{
-                  (country.distance / 1000).toLocaleString('de-CH', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 2,
-                  })
+                  (country.distance / 1000)
+                    .toLocaleString('de-CH', {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })
+                    .replace("'", '’')
                 }}km
               </span>
             </p>
@@ -137,10 +149,12 @@ const {
                   </span>
                   <span class="text-sm text-gray-500">
                     {{
-                      (region.distance / 1000).toLocaleString('de-CH', {
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 2,
-                      })
+                      (region.distance / 1000)
+                        .toLocaleString('de-CH', {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2,
+                        })
+                        .replace("'", '’')
                     }}km</span
                   >
                 </p>

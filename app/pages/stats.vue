@@ -43,7 +43,7 @@ const { data: years, pending: ypending, error: yerror } = await useFetch('/api/s
     <div v-else class="flex flex-col gap-6">
       <select
         v-model="statYear"
-        class="ring-primary appearance-none rounded-lg bg-white bg-[left_0.5rem_center] bg-no-repeat px-2 py-1 pl-7 text-gray-500 outline-none focus-visible:ring-2"
+        class="appearance-none rounded-lg bg-white bg-[left_0.5rem_center] bg-no-repeat px-2 py-1 pl-7 text-gray-500 outline-none ring-primary focus-visible:ring-2"
         style="
           background-image: url('data:image/svg+xml;utf8,<svg width=%2216%22 height=%2216%22 viewBox=%220 0 16 16%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22><path d=%22M4 6L8 10L12 6%22 stroke=%22%23999999%22 stroke-width=%221.5%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>');
           background-size: 1rem 1rem;
@@ -59,17 +59,21 @@ const { data: years, pending: ypending, error: yerror } = await useFetch('/api/s
         <div class="grid grid-cols-2 gap-3">
           <PagesRideStatCard name="Distance" :icon="LucideRoute">
             {{
-              ((stats?.distance || 0) / 1000).toLocaleString('de-CH', {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 2,
-              })
+              ((stats?.distance || 0) / 1000)
+                .toLocaleString('de-CH', {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })
+                .replace("'", '’')
             }}km
           </PagesRideStatCard>
           <PagesRideStatCard name="Elevation" :icon="LucideMountain">
             {{
-              stats?.elevation.toLocaleString('de-CH', {
-                maximumFractionDigits: 0,
-              })
+              stats?.elevation
+                .toLocaleString('de-CH', {
+                  maximumFractionDigits: 0,
+                })
+                .replace("'", '’')
             }}m
           </PagesRideStatCard>
           <PagesRideStatCard name="Moving time" :icon="LucideTimer">
@@ -91,16 +95,18 @@ const { data: years, pending: ypending, error: yerror } = await useFetch('/api/s
               </span>
               <span class="text-base text-gray-500">
                 {{
-                  (country.distance / 1000).toLocaleString('de-CH', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 2,
-                  })
+                  (country.distance / 1000)
+                    .toLocaleString('de-CH', {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })
+                    .replace("'", '’')
                 }}km
               </span>
             </p>
             <div class="h-2 w-full rounded-md bg-black bg-opacity-5">
               <span
-                class="bg-primary block h-2 rounded-md"
+                class="block h-2 rounded-md bg-primary"
                 :style="'width: ' + (country.distance / (stats?.distance || 0)) * 100 + '%'"
               ></span>
             </div>
@@ -112,16 +118,18 @@ const { data: years, pending: ypending, error: yerror } = await useFetch('/api/s
                   </span>
                   <span class="text-sm text-gray-500">
                     {{
-                      (region.distance / 1000).toLocaleString('de-CH', {
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 2,
-                      })
+                      (region.distance / 1000)
+                        .toLocaleString('de-CH', {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2,
+                        })
+                        .replace("'", '’')
                     }}km</span
                   >
                 </p>
                 <div class="h-1.5 w-full rounded-md bg-black bg-opacity-5">
                   <span
-                    class="bg-primary block h-1.5 rounded-md"
+                    class="block h-1.5 rounded-md bg-primary"
                     :style="'width: ' + (region.distance / country.distance) * 100 + '%'"
                   ></span>
                 </div>
