@@ -31,7 +31,7 @@ const paint = {
 watch(
   () => route.name,
   (newName, oldName) => {
-    if (['index', 'stats'].includes(newName as string)) {
+    if (['index', 'stats', 'info'].includes(newName as string)) {
       if (antsLayerRef.value != '' && mapRef.map?.getLayer(antsLayerRef.value)) {
         mapRef.map?.removeLayer(antsLayerRef.value)
       }
@@ -177,8 +177,8 @@ const fitBoundsMap = (geojson: GeoJSON.GeoJSON) => {
     :attributionControl="false"
     @map:load="handleLoad"
   >
-    <MglNavigationControl position="top-left" />
     <MglAttributionControl position="bottom-left" :compact="true" />
+    <MglNavigationControl position="bottom-left" />
 
     <mgl-geo-json-source
       v-for="activity in activities"

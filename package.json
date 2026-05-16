@@ -22,7 +22,8 @@
     "nuxt-mongoose": "^1.1.2",
     "nuxt-processor": "^1.1.0",
     "vue": "^3.5.33",
-    "vue-router": "^5.0.6"
+    "vue-router": "^5.0.6",
+    "vue3-click-outside-directive": "^1.0.2"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.16",
