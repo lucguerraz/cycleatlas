@@ -18,7 +18,13 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    const allActivities = (await ActivitySchema.find(options)) as Activity[]
+    const allActivities = (await ActivitySchema.find(options, {
+      distance: 1,
+      total_elevation_gain: 1,
+      moving_time: 1,
+      elapsed_time: 1,
+      countries: 1,
+    })) as Activity[]
 
     const distance = allActivities.reduce((counter, activity) => counter + activity.distance, 0)
     const elevation = allActivities.reduce((counter, activity) => counter + activity.total_elevation_gain, 0)
