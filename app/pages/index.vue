@@ -8,7 +8,7 @@ definePageMeta({
 
 const bus = useEventBus()
 
-const { data: activities } = await useFetch<Activity[]>('/api/activities')
+const { data: activities, pending, error } = await useFetch<Activity[]>('/api/activities')
 
 const handleClick = (id: number) => {
   bus.emit('map-zoom-into-view', { id })
@@ -17,7 +17,18 @@ const handleClick = (id: number) => {
 
 <template>
   <AppSidebar>
-    <ul class="flex flex-col gap-3">
+    <div v-if="pending" class="flex h-full w-full items-center justify-center"><p>Loading...</p></div>
+    <div v-else-if="error" class="flex h-full w-full flex-col items-center justify-center">
+      <p>Couldn't load activities</p>
+      <p class="text-center font-light text-gray-500">{{ error.data.message }}</p>
+    </div>
+    <div v-else-if="activities?.length === 0" class="flex h-full w-full flex-col items-center justify-center">
+      <p>No activities yet</p>
+      <p class="text-center font-light text-gray-500">
+        We are either still processing your data, or we don't have permissions to view your activities on strava
+      </p>
+    </div>
+    <ul v-else class="flex flex-col gap-3">
       <li v-for="activity in activities" :key="activity.stravaid">
         <NuxtLink
           :to="{ name: 'ride-id', params: { id: activity.stravaid } }"
