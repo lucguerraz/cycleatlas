@@ -23,7 +23,13 @@ const props = defineProps(['country', 'countrycode', 'totaldistance'])
       <span class="text-2xl">
         {{ countries[countrycode] }}
       </span>
-      <span class="text-base text-gray-500">
+      <span
+        class="cursor-help pl-1 text-base text-gray-500"
+        v-tooltip.left="{
+          content: 'Due to the imprecision of GPS and geo-data,<br> distances may not always match.',
+          html: true,
+        }"
+      >
         {{
           (country.distance / 1000)
             .toLocaleString('de-CH', {
@@ -36,7 +42,7 @@ const props = defineProps(['country', 'countrycode', 'totaldistance'])
     </p>
     <div class="h-2 w-full rounded-md bg-black bg-opacity-5">
       <span
-        class="block h-2 rounded-md bg-primary"
+        class="block h-2 max-w-full rounded-md bg-primary"
         :style="'width: ' + (country.distance / (totaldistance || 0)) * 100 + '%'"
       ></span>
     </div>
@@ -46,7 +52,13 @@ const props = defineProps(['country', 'countrycode', 'totaldistance'])
           <span class="text-lg">
             {{ regions[countrycode]?.[regioncode] }}
           </span>
-          <span class="text-sm text-gray-500">
+          <span
+            class="cursor-help pl-1 text-sm text-gray-500"
+            v-tooltip.left="{
+              content: 'Due to the imprecision of GPS and geo-data,<br> distances may not always match.',
+              html: true,
+            }"
+          >
             {{
               (region.distance / 1000)
                 .toLocaleString('de-CH', {
@@ -59,7 +71,7 @@ const props = defineProps(['country', 'countrycode', 'totaldistance'])
         </p>
         <div class="h-1.5 w-full rounded-md bg-black bg-opacity-5">
           <span
-            class="block h-1.5 rounded-md bg-primary"
+            class="block h-1.5 max-w-full rounded-md bg-primary"
             :style="'width: ' + (region.distance / country.distance) * 100 + '%'"
           ></span>
         </div>
