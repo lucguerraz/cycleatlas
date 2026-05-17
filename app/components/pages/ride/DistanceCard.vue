@@ -40,10 +40,10 @@ const props = defineProps(['country', 'countrycode', 'totaldistance'])
         }}km
       </span>
     </p>
-    <div class="h-2 w-full rounded-md bg-black bg-opacity-5">
+    <div class="h-2 w-full overflow-hidden rounded-md bg-black bg-opacity-5">
       <span
-        class="block h-2 max-w-full rounded-md bg-primary"
-        :style="'width: ' + (country.distance / (totaldistance || 0)) * 100 + '%'"
+        class="relative -left-[10%] block h-2 max-w-[110%] rounded-md bg-primary"
+        :style="'width: ' + ((country.distance / (totaldistance || 0)) * 100 + 10) + '%'"
       ></span>
     </div>
     <ul class="mt-3 flex flex-col gap-2 pb-1" v-if="country.regions">
@@ -69,10 +69,10 @@ const props = defineProps(['country', 'countrycode', 'totaldistance'])
             }}km</span
           >
         </p>
-        <div class="h-1.5 w-full rounded-md bg-black bg-opacity-5">
+        <div class="h-1.5 w-full overflow-hidden rounded-md bg-black bg-opacity-5">
           <span
-            class="block h-1.5 max-w-full rounded-md bg-primary"
-            :style="'width: ' + (region.distance / country.distance) * 100 + '%'"
+            class="relative -left-[10%] block h-1.5 max-w-[110%] rounded-md bg-primary"
+            :style="'width: ' + ((region.distance / country.distance) * 100 + 10) + '%'"
           ></span>
         </div>
       </li>
