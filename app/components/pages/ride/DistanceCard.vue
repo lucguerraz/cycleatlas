@@ -18,7 +18,7 @@ const props = defineProps(['country', 'countrycode', 'totaldistance'])
 </script>
 
 <template>
-  <li class="rounded-lg bg-white p-4 pb-6">
+  <li class="rounded-lg bg-white p-4 pb-5">
     <p class="flex items-center justify-between">
       <span class="text-2xl">
         {{ countries[countrycode] }}
@@ -46,7 +46,7 @@ const props = defineProps(['country', 'countrycode', 'totaldistance'])
         :style="'width: ' + (country.distance / (totaldistance || 0)) * 100 + '%'"
       ></span>
     </div>
-    <ul class="mt-3 flex flex-col gap-2">
+    <ul class="mt-3 flex flex-col gap-2 pb-1" v-if="country.regions">
       <li v-for="(region, regioncode) in country.regions">
         <p class="flex items-center justify-between">
           <span class="text-lg">
