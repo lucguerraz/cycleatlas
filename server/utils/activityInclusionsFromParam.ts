@@ -41,7 +41,10 @@ const inclusionOptions = {
   },
   geodata: {
     stravaid: 1,
-    geojson: 1,
+    'geojson.type': 1,
+    'geojson.features.type': 1,
+    'geojson.features.properties.name': 1,
+    'geojson.features.geometry': 1,
   },
   teritorydata: {
     stravaid: 1,
