@@ -9,7 +9,10 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "db": "mongod --dbpath ./.mongodb",
-    "processor:dev": "nuxt-processor dev"
+    "processor:dev": "nuxt-processor dev",
+    "webhook:register": "node ./tools/strava/registerWebhook.js",
+    "webhook:unregister": "node ./tools/strava/unregisterWebhook.js",
+    "webhook:view": "node ./tools/strava/viewWebhook.js"
   },
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",

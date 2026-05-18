@@ -17,6 +17,16 @@ export default defineNuxtConfig({
     public: {
       tiler_api_key: process.env.NUXT_PUBLIC_TILER_API_KEY,
     },
+    stravaWebhook: {
+      verifyToken: '',
+      signingSecret: '',
+      subscriptionId: '',
+    },
+  },
+  vite: {
+    server: {
+      allowedHosts: [],
+    },
   },
   googleFonts: {
     families: {
