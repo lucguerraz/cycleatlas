@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const year = yParam ? yParam : '*'
 
   try {
-    const options = { athleteid: user.id } as { [key: string]: any }
+    const options = { athleteid: user.id, geojson: { $exists: true, $not: { $eq: {} } } } as { [key: string]: any }
 
     if (!isNaN(parseInt(year))) {
       options.start_date = {

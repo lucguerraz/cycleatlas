@@ -37,11 +37,6 @@ export default defineWorker<ProcessActivityName, ProcessActivityData, ProcessAct
         return { processedAt: beginAt, finishedProcessingAt: Date.now(), status: 'success' } // not a ride activity
       }
 
-      const { geojson, newAthlete: newAthlete } = await build_geojson(stravaActivity, athlete)
-      athlete = newAthlete
-
-      const countries = await compute_regions(geojson)
-
       const dbActivity = {
         athleteid: athlete.stravaid,
         name: stravaActivity.name,
@@ -62,11 +57,24 @@ export default defineWorker<ProcessActivityName, ProcessActivityData, ProcessAct
         average_cadence: stravaActivity.average_cadence || 0,
         average_watts: stravaActivity.average_watts || 0,
         average_heartrate: stravaActivity.average_heartrate || 0,
-        geojson: geojson,
-        countries: countries,
+        geojson: {},
+        countries: {},
       } as Activity
 
       await new ActivitySchema(dbActivity).save()
+
+      const { geojson, newAthlete: newAthlete } = await build_geojson(stravaActivity, athlete)
+      athlete = newAthlete
+
+      const countries = await compute_regions(geojson)
+
+      const dbGeoData = {
+        geojson: geojson,
+        countries: countries,
+      }
+
+      // @ts-ignore
+      await ActivitySchema.updateOne({ stravaid: stravaActivity.id }, dbGeoData)
 
       return { processedAt: beginAt, finishedProcessingAt: Date.now(), status: 'success' }
     } catch (err) {

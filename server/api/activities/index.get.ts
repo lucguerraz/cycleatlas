@@ -6,7 +6,10 @@ export default defineEventHandler(async (event) => {
   const inclusion = getInclusionsFromParam(event)
 
   try {
-    return await ActivitySchema.find({ athleteid: user.id }, inclusion).sort({ start_date: -1 })
+    return await ActivitySchema.find(
+      { athleteid: user.id, geojson: { $exists: true, $not: { $eq: {} } } },
+      inclusion
+    ).sort({ start_date: -1 })
   } catch (error) {
     return error
   }
