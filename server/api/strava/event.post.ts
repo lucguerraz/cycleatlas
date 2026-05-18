@@ -65,11 +65,20 @@ const handleActivity = async (event: any) => {
   switch (event.aspect_type) {
     case 'create':
       // process new activity
-      await queue.add('processActivity', {
-        athleteStravaId: event.owner_id,
-        activityStravaId: event.object_id,
-        stravaActivity: null,
-      })
+      const jobUUID = crypto.randomUUID()
+      await AthleteSchema.updateOne({ stravaid: event.owner_id }, { $push: { jobs: jobUUID } })
+      await queue.add(
+        'processActivity',
+        {
+          athleteStravaId: event.owner_id,
+          activityStravaId: event.object_id,
+          stravaActivity: null,
+        },
+        {
+          jobId: jobUUID,
+        }
+      )
+
       break
 
     case 'update':
@@ -91,11 +100,19 @@ const handleActivity = async (event: any) => {
       if (event.updates.type) {
         if (event.updates.type === 'ride') {
           // process it
-          await queue.add('processActivity', {
-            athleteStravaId: event.owner_id,
-            activityStravaId: event.object_id,
-            stravaActivity: null,
-          })
+          const jobUUID = crypto.randomUUID()
+          await AthleteSchema.updateOne({ stravaid: event.owner_id }, { $push: { jobs: jobUUID } })
+          await queue.add(
+            'processActivity',
+            {
+              athleteStravaId: event.owner_id,
+              activityStravaId: event.object_id,
+              stravaActivity: null,
+            },
+            {
+              jobId: jobUUID,
+            }
+          )
         } else {
           // delete it
           await ActivitySchema.deleteOne({ stravaid: event.object_id, athleteid: event.owner_id })

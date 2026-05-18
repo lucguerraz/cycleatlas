@@ -24,5 +24,8 @@ export const AthleteSchema = defineMongooseModel({
     processing_intital_data: {
       type: Boolean,
     },
+    jobs: {
+      type: Array,
+    },
   },
 })

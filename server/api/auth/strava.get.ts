@@ -26,6 +26,7 @@ export default defineOAuthStravaEventHandler({
         expires_at: tokens.expires_at,
         refresh_token: tokens.refresh_token,
         processing_intital_data: true,
+        jobs: [],
       }).save()
 
       await queue.add('processInitialActivities', { athleteStravaId: user.id })

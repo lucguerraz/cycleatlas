@@ -28,6 +28,11 @@ export default defineNuxtConfig({
       allowedHosts: [],
     },
   },
+  nitro: {
+    experimental: {
+      websocket: true,
+    },
+  },
   googleFonts: {
     families: {
       Inter: '300..600',

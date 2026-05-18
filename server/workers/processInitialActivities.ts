@@ -29,7 +29,16 @@ export default defineWorker<ProcessInitialActivitiesName, ProcessInitialActiviti
           const existingActivity = await ActivitySchema.findOne({ stravaid: stravaActivity.id })
           if (existingActivity) continue
 
-          await queue.add('processActivity', { athleteStravaId, activityStravaId: stravaActivity.id, stravaActivity })
+          const jobUUID = crypto.randomUUID()
+          // @ts-ignore
+          await AthleteSchema.updateOne({ stravaid: athlete.stravaid }, { $push: { jobs: jobUUID } })
+          await queue.add(
+            'processActivity',
+            { athleteStravaId, activityStravaId: stravaActivity.id, stravaActivity },
+            {
+              jobId: jobUUID,
+            }
+          )
         }
 
         // @ts-ignore
