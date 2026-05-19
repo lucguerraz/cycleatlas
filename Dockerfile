@@ -26,9 +26,11 @@ WORKDIR /app
 COPY --from=build /app/.output/ ./
 
 # Change the port and host
-ENV PORT=80
+ENV PORT=3000
 ENV HOST=0.0.0.0
 
-EXPOSE 80
+EXPOSE 3000
+
+HEALTHCHECK CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/ || exit 1
 
 CMD ["node", "/app/server/index.mjs"]
