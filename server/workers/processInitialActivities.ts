@@ -8,6 +8,8 @@ import type { Athlete } from '~~/types'
 import { defineWorker } from '#processor'
 import queue from '#server/queues/processActivity'
 import { fetchStrava } from '#server/utils/workers/strava'
+import { AthleteSchema } from '#server/models/athlete.schema'
+import { ActivitySchema } from '#server/models/activity.schema'
 
 export default defineWorker<ProcessInitialActivitiesName, ProcessInitialActivitiesData, ProcessInitialActivitiesResult>(
   {
