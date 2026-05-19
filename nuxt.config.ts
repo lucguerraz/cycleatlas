@@ -14,9 +14,7 @@ export default defineNuxtConfig({
         sameSite: 'lax' as const,
       },
     },
-    public: {
-      tiler_api_key: process.env.NUXT_PUBLIC_TILER_API_KEY,
-    },
+    public: {},
     stravaWebhook: {
       verifyToken: '',
       signingSecret: '',
