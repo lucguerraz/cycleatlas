@@ -5,6 +5,8 @@ import { defineWorker } from '#processor'
 import * as turf from '@turf/turf'
 import { readFile } from 'node:fs/promises'
 import { fetchStrava } from '#server/utils/workers/strava'
+import { AthleteSchema } from '#server/models/athlete.schema'
+import { ActivitySchema } from '#server/models/activity.schema'
 
 export default defineWorker<ProcessActivityName, ProcessActivityData, ProcessActivityResult>({
   name: 'processActivity',
