@@ -28,7 +28,7 @@ const handleClick = (id: number) => {
         We are either still processing your data, or we don't have permissions to view your activities on strava
       </p>
     </div>
-    <div v-else class="flex h-full flex-col gap-6 overflow-scroll">
+    <div v-else class="flex h-full flex-col gap-6">
       <ul class="flex flex-col gap-3">
         <li v-for="activity in activities" :key="activity.stravaid">
           <NuxtLink

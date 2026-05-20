@@ -25,7 +25,7 @@ const { data: years, pending: ypending, error: yerror } = await useFetch('/api/s
       <p>Couldn't load stats</p>
       <pre class="text-gray-500">{{ error.data.message }}</pre>
     </div>
-    <div v-else class="flex h-full flex-col gap-6">
+    <div v-else class="flex h-full w-full flex-col gap-3">
       <select
         v-model="statYear"
         class="appearance-none rounded-lg bg-white bg-[left_0.5rem_center] bg-no-repeat px-2 py-1 pl-7 text-gray-500 outline-none ring-primary focus-visible:ring-2"

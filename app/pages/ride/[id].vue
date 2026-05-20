@@ -23,7 +23,7 @@ const {
       <p>Couldn't load activity</p>
       <pre class="text-gray-500">{{ error.data.message }}</pre>
     </div>
-    <div v-else class="flex h-full flex-col gap-6 overflow-scroll">
+    <div v-else class="flex h-full flex-col gap-6">
       <section>
         <h2 class="mb-1 text-3xl font-semibold">{{ activity?.name }}</h2>
         <div class="flex flex-wrap gap-x-3 gap-y-1">

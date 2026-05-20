@@ -9,9 +9,11 @@
       </ul>
     </nav>
     <main
-      class="h-full overflow-scroll rounded-xl bg-offwhite bg-opacity-55 p-4 backdrop-blur-sm group-has-[li:first-child_a.active]:rounded-tl-none group-has-[li:last-child_a.active]:rounded-tr-none"
+      class="h-full overflow-scroll rounded-xl bg-offwhite bg-opacity-55 backdrop-blur-sm group-has-[li:first-child_a.active]:rounded-tl-none group-has-[li:last-child_a.active]:rounded-tr-none"
     >
-      <slot />
+      <div class="flex min-h-full w-full p-4">
+        <slot />
+      </div>
     </main>
   </div>
 </template>
