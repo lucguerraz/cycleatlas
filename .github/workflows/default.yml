@@ -44,6 +44,6 @@ jobs:
       - name: Coolify deploy
         if: success()
         run: |
-          curl -X GET "${{ secrets.COOLIFY_WEBHOOK }}" 
-            -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}" 
+          curl -X GET "${{ secrets.COOLIFY_WEBHOOK }}" \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}" \
             --fail --silent --show-error
