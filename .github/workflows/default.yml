@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'app/**/*'
+      - 'public/**/*'
+      - 'server/**/*'
+      - 'types/**/*'
+      - '*.config.js'
+      - 'package-lock.json'
 
 env:
   REGISTRY: ghcr.io
