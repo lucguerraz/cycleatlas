@@ -12,11 +12,12 @@ const onactive = (event) => {
   status.value.toProcess = event.total
 }
 
-const oncompleted = (event) => {
+const oncompleted = async (event) => {
   if (status.value.current === event.id) status.value.current = ''
   status.value.toProcess = event.total
   status.value.processed.push(event.id)
   status.value.processed = [...new Set(status.value.processed)]
+  await refreshNuxtData()
 }
 
 socket.on('waiting', onwaiting)
