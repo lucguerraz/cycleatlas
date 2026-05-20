@@ -178,7 +178,8 @@ const build_geojson = async (stravaActivity: any, athlete: Athlete) => {
 }
 
 const compute_regions = async (geojson: any) => {
-  const GEOJSON_COUNTRIES = JSON.parse(await readFile('./server/utils/geofiles/countries.geojson', 'utf8'))
+  const assets = useStorage('assets:server')
+  const GEOJSON_COUNTRIES = JSON.parse(Buffer.from(await assets.getItem('geofiles/countries.geojson')).toString('utf8'))
 
   const countries = computeIntersections(geojson, GEOJSON_COUNTRIES) as Countries
 
@@ -188,7 +189,7 @@ const compute_regions = async (geojson: any) => {
 
     if (['AT', 'CH', 'DE', 'FR', 'IT'].includes(countryISO)) {
       const GEOJSON_REGION = JSON.parse(
-        await readFile(`./server/utils/geofiles/regions_${countryISO.toLowerCase()}.geojson`, 'utf8')
+        Buffer.from(await assets.getItem(`geofiles/regions_${countryISO.toLowerCase()}.geojson`)).toString('utf8')
       )
       country.regions = computeIntersections(geojson, GEOJSON_REGION)
     }
