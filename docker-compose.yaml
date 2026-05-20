@@ -1,6 +1,8 @@
 services:
   app:
     image: ghcr.io/lucguerraz/cycleatlas:latest
+    restart: unless-stopped
+    pull_policy: always
     networks:
       - coolify
     environment:
@@ -14,6 +16,8 @@ services:
       - NUXT_STRAVA_WEBHOOK_SUBSCRIPTION_ID=${NUXT_STRAVA_WEBHOOK_SUBSCRIPTION_ID:?}
   worker:
     image: ghcr.io/lucguerraz/cycleatlas:latest
+    restart: unless-stopped
+    pull_policy: always
     networks:
       - coolify
     environment:
