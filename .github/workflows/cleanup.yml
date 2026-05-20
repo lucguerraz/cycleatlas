@@ -1,0 +1,17 @@
+name: Packages Cleanup
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * *'
+
+jobs:
+  house-keeping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep the last 3
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'cycleatlas'
+          package-type: 'container'
+          min-versions-to-keep: 3
