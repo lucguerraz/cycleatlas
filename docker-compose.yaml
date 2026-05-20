@@ -1,6 +1,8 @@
 services:
   app:
     image: ghcr.io/lucguerraz/cycleatlas:latest
+    networks:
+      - coolify
     environment:
       - NUXT_OAUTH_STRAVA_CLIENT_ID=${NUXT_OAUTH_STRAVA_CLIENT_ID:?}
       - NUXT_OAUTH_STRAVA_CLIENT_SECRET=${NUXT_OAUTH_STRAVA_CLIENT_SECRET:?}
@@ -12,6 +14,8 @@ services:
       - NUXT_STRAVA_WEBHOOK_SUBSCRIPTION_ID=${NUXT_STRAVA_WEBHOOK_SUBSCRIPTION_ID:?}
   worker:
     image: ghcr.io/lucguerraz/cycleatlas:latest
+    networks:
+      - coolify
     environment:
       - NUXT_OAUTH_STRAVA_CLIENT_ID=${NUXT_OAUTH_STRAVA_CLIENT_ID:?}
       - NUXT_OAUTH_STRAVA_CLIENT_SECRET=${NUXT_OAUTH_STRAVA_CLIENT_SECRET:?}
@@ -22,3 +26,7 @@ services:
       - NUXT_STRAVA_WEBHOOK_SIGNING_SECRET=${NUXT_STRAVA_WEBHOOK_SIGNING_SECRET:?}
       - NUXT_STRAVA_WEBHOOK_SUBSCRIPTION_ID=${NUXT_STRAVA_WEBHOOK_SUBSCRIPTION_ID:?}
     command: ["node", "/app/server/workers/index.mjs"]
+
+networks:
+  coolify:
+    external: true
