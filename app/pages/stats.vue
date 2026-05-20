@@ -81,7 +81,15 @@ const { data: years, pending: ypending, error: yerror } = await useFetch('/api/s
           />
         </ul>
       </section>
-      <PagesRideCreditCard />
+      <PagesRideCreditCard>
+        Activity data from
+        {{
+          new Intl.ListFormat('en-GB', {
+            style: 'long',
+            type: 'conjunction',
+          }).format(stats?.sources || ['Strava'])
+        }}
+      </PagesRideCreditCard>
     </div>
   </AppSidebar>
 </template>

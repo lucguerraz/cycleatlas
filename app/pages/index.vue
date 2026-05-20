@@ -37,7 +37,7 @@ const handleClick = (id: number) => {
             @click="handleClick(activity.stravaid)"
           >
             <h2 class="text-xl">{{ activity.name }}</h2>
-            <div class="flex gap-3">
+            <div class="flex flex-wrap gap-x-3 gap-y-1">
               <p class="flex items-center gap-1 text-base font-medium text-gray-500">
                 <LucideCalendar :size="16" :strokeWidth="2.2" />
                 <span>{{ new Date(activity.start_date).toLocaleDateString('de-CH', { weekday: undefined }) }}</span>
@@ -67,6 +67,10 @@ const handleClick = (id: number) => {
                       .replace("'", '’')
                   }}m</span
                 >
+              </p>
+              <p class="flex items-center gap-1 text-base font-medium text-gray-500">
+                <LucideWatch :size="16" :strokeWidth="2.2" />
+                <span>{{ activity.device_name }}</span>
               </p>
             </div>
           </NuxtLink>

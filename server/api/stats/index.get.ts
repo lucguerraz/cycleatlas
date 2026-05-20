@@ -24,6 +24,7 @@ export default defineEventHandler(async (event) => {
       moving_time: 1,
       elapsed_time: 1,
       countries: 1,
+      device_name: 1,
     })) as Activity[]
 
     const distance = allActivities.reduce((counter, activity) => counter + activity.distance, 0)
@@ -34,6 +35,8 @@ export default defineEventHandler(async (event) => {
 
     const countries = sortObjectKeys(allActivities.reduce((obj, activity) => mergeDeep(obj, activity.countries), {}))
 
+    const sources = [...new Set([...allActivities.map((activity) => activity.device_name.split(' ')[0]), 'Strava'])]
+
     return {
       distance,
       elevation,
@@ -41,6 +44,7 @@ export default defineEventHandler(async (event) => {
       elapsed_time,
       ridecount,
       countries,
+      sources,
     }
   } catch (error) {
     return error

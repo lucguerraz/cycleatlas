@@ -32,6 +32,7 @@ export interface Stats {
   elapsed_time: number
   ridecount: number
   countries: Countries
+  sources: string[]
 }
 
 export interface Countries {

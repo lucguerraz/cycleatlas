@@ -26,7 +26,7 @@ const {
     <div v-else class="flex h-full flex-col gap-6 overflow-scroll">
       <section>
         <h2 class="mb-1 text-3xl font-semibold">{{ activity?.name }}</h2>
-        <div class="flex gap-3">
+        <div class="flex flex-wrap gap-x-3 gap-y-1">
           <p class="flex items-center gap-1 text-base font-medium text-gray-500">
             <LucideCalendar :size="16" :strokeWidth="2.2" />
             <span>{{
@@ -35,8 +35,14 @@ const {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
               })
             }}</span>
+          </p>
+          <p class="flex items-center gap-1 text-base font-medium text-gray-500">
+            <LucideWatch :size="16" :strokeWidth="2.2" />
+            <span>{{ activity?.device_name }}</span>
           </p>
           <p class="flex items-center gap-1 text-base font-medium text-gray-500">
             <LucideExternalLink :size="16" :strokeWidth="2.2" />

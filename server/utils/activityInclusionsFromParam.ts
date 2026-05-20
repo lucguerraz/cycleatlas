@@ -25,7 +25,7 @@ const inclusionOptions = {
     total_elevation_gain: 1,
     // type: 1,
     // sport_type: 1,
-    // device_name: 1,
+    device_name: 1,
     stravaid: 1,
     start_date: 1,
     // trainer: 1,
