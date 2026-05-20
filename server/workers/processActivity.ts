@@ -84,7 +84,10 @@ export default defineWorker<ProcessActivityName, ProcessActivityData, ProcessAct
       return { processedAt: beginAt, finishedProcessingAt: Date.now(), status: 'error' }
     }
   },
-  options: {},
+  options: {
+    lockDuration: 180_000,
+    stalledInterval: 60_000,
+  },
 })
 
 const fetch_activity = async (activityStravaId: number, athlete: Athlete) => {
