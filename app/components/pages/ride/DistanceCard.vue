@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import countriesData from '@/assets/dictionaries/countries.json'
 import regionsAT from '@/assets/dictionaries/regions/at.json'
+import regionsBE from '@/assets/dictionaries/regions/be.json'
 import regionsCH from '@/assets/dictionaries/regions/ch.json'
 import regionsDE from '@/assets/dictionaries/regions/de.json'
 import regionsFR from '@/assets/dictionaries/regions/fr.json'
@@ -8,6 +9,7 @@ import regionsIT from '@/assets/dictionaries/regions/it.json'
 const countries = countriesData as { [key: string]: string }
 const regions = {
   AT: regionsAT,
+  BE: regionsBE,
   CH: regionsCH,
   DE: regionsDE,
   FR: regionsFR,

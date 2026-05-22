@@ -190,7 +190,7 @@ const compute_regions = async (geojson: any) => {
     const country = countries[countryISO]
     if (!country) continue
 
-    if (['AT', 'CH', 'DE', 'FR', 'IT'].includes(countryISO)) {
+    if (['AT', 'BE', 'CH', 'DE', 'FR', 'IT'].includes(countryISO)) {
       const GEOJSON_REGION = JSON.parse(
         Buffer.from(await assets.getItemRaw(`regions_${countryISO.toLowerCase()}.geojson`)).toString('utf8')
       )

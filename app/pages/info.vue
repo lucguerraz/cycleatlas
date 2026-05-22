@@ -13,7 +13,7 @@ definePageMeta({
         <p>
           CycleAtlas is a small app to visualize all your past cycling rides, show the roads you've already frequented
           and places you've explored on two wheels. It also tracks what dictances you've cycled in each country and for
-          Austria, Switzerland, Germany, France and Italy even in which regions.
+          Austria, Belgium, Switzerland, Germany, France and Italy even in which regions.
         </p>
       </section>
       <section>
@@ -55,6 +55,15 @@ definePageMeta({
             class="text-[color-mix(in_oklch,theme(colors.primary)_90%,black)] hover:text-primary"
           >
             GeoData Regions Austria via Flooh Perlot and Statistik Austria
+          </NuxtLink>
+          <NuxtLink
+            to="https://github.com/mathiasleroy/belgium-geographic-data/"
+            :external="true"
+            target="_blank"
+            rel="nofollow"
+            class="text-[color-mix(in_oklch,theme(colors.primary)_90%,black)] hover:text-primary"
+          >
+            GeoData Regions Belgium via Mathias Leroy and fgov.be
           </NuxtLink>
           <NuxtLink
             to="https://labs.karavia.ch/swiss-boundaries-geojson/"
