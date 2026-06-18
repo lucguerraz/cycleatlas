@@ -15,6 +15,7 @@ const { data: activities } = await useFetch<Activity[]>('/api/activities?fields=
 
 const center = { lon: 16.3355, lat: 46.7754 }
 const zoom = 4
+const windowWidth = window.innerWidth
 
 const layout = {
   'line-join': 'round',
@@ -164,12 +165,23 @@ const fitBoundsMap = (geojson: GeoJSON.GeoJSON) => {
   ] as LngLatBoundsLike
 
   mapRef.map?.fitBounds(bounds, {
-    padding: {
-      top: document.documentElement.clientWidth / 15,
-      bottom: document.documentElement.clientWidth / 15,
-      left: document.documentElement.clientWidth / 15,
-      right: document.documentElement.clientWidth / 3.8461538462 + 24 + document.documentElement.clientWidth / 18,
-    },
+    padding:
+      document.documentElement.clientWidth >= 640
+        ? {
+            top: document.documentElement.clientWidth / 15,
+            bottom: document.documentElement.clientWidth / 15,
+            left: document.documentElement.clientWidth / 15,
+            right:
+              document.documentElement.clientWidth / (document.documentElement.clientWidth >= 1024 ? 3.8461538462 : 2) +
+              (document.documentElement.clientWidth >= 1024 ? 24 : 0) +
+              document.documentElement.clientWidth / 18,
+          }
+        : {
+            top: document.documentElement.clientHeight / 15,
+            bottom: document.documentElement.clientHeight / 2 + 12 + document.documentElement.clientHeight / 18,
+            left: document.documentElement.clientHeight / 15,
+            right: document.documentElement.clientHeight / 15,
+          },
     maxZoom: 14,
     animate: true,
   })
@@ -219,8 +231,8 @@ const hideNonSelectedYearRides = (selectedYear: string) => {
     :attributionControl="false"
     @map:load="handleLoad"
   >
-    <MglAttributionControl position="bottom-left" :compact="true" />
-    <MglNavigationControl position="bottom-left" />
+    <MglAttributionControl :position="windowWidth >= 640 ? 'bottom-left' : 'bottom-right'" :compact="true" />
+    <MglNavigationControl :position="windowWidth >= 640 ? 'bottom-left' : 'top-right'" />
 
     <mgl-geo-json-source
       v-for="activity in activities"
