@@ -7,6 +7,8 @@ definePageMeta({
   layout: 'map',
 })
 
+const bus = useEventBus()
+
 const statYear = ref('*')
 const {
   data: stats,
@@ -16,6 +18,10 @@ const {
   query: { y: statYear },
 })
 const { data: years, pending: ypending, error: yerror } = await useFetch('/api/stats/years')
+
+const handleYearChange = () => {
+  bus.emit('map-hide-non-selected-tracks', statYear.value.toString())
+}
 </script>
 
 <template>
@@ -28,6 +34,7 @@ const { data: years, pending: ypending, error: yerror } = await useFetch('/api/s
     <div v-else class="flex h-full w-full flex-col gap-6">
       <select
         v-model="statYear"
+        @change="handleYearChange"
         class="appearance-none rounded-lg bg-white bg-[left_0.5rem_center] bg-no-repeat px-2 py-1 pl-7 text-gray-500 outline-none ring-primary focus-visible:ring-2"
         style="
           background-image: url('data:image/svg+xml;utf8,<svg width=%2216%22 height=%2216%22 viewBox=%220 0 16 16%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22><path d=%22M4 6L8 10L12 6%22 stroke=%22%23999999%22 stroke-width=%221.5%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>');

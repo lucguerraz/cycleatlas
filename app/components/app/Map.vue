@@ -11,7 +11,7 @@ const mapRef = useMap()
 
 const antsLayerRef = ref('')
 
-const { data: activities } = await useFetch<Activity[]>('/api/activities?fields=geodata')
+const { data: activities } = await useFetch<Activity[]>('/api/activities?fields=metadata,geodata')
 
 const center = { lon: 16.3355, lat: 46.7754 }
 const zoom = 4
@@ -34,11 +34,23 @@ watch(
       }
       fitBoundsAll()
     }
+    if (['index', 'ride-id', 'info'].includes(newName as string)) {
+      resetHideNonSelectedYearRides()
+      if (['index', 'info'].includes(newName as string)) {
+        fitBoundsAll()
+      }
+    }
   }
 )
 
-onMounted(() => bus.on('map-zoom-into-view', handleZoom))
-onBeforeUnmount(() => bus.off('map-zoom-into-view', handleZoom))
+onMounted(() => {
+  bus.on('map-zoom-into-view', handleZoom)
+  bus.on('map-hide-non-selected-tracks', hideNonSelectedYearRides)
+})
+onBeforeUnmount(() => {
+  bus.off('map-zoom-into-view', handleZoom)
+  bus.off('map-hide-non-selected-tracks', hideNonSelectedYearRides)
+})
 const handleZoom = (payload: any) => {
   fitBoundsActivity(payload.id)
 }
@@ -161,6 +173,39 @@ const fitBoundsMap = (geojson: GeoJSON.GeoJSON) => {
     maxZoom: 14,
     animate: true,
   })
+}
+
+const resetHideNonSelectedYearRides = () => {
+  activities.value?.forEach((activity) => {
+    if (!mapRef.map?.getLayer(activity.stravaid + '_geojson_line')) return
+    mapRef.map?.setPaintProperty(activity.stravaid + '_geojson_line', 'line-color', '#0CBACD')
+  })
+}
+const hideNonSelectedYearRides = (selectedYear: string) => {
+  resetHideNonSelectedYearRides()
+
+  if (selectedYear === '*') return
+
+  const rejectedActivities = activities.value?.filter((activity) => !activity.start_date.includes(selectedYear))
+  rejectedActivities?.forEach((activity) => {
+    if (!mapRef.map?.getLayer(activity.stravaid + '_geojson_line')) return
+    mapRef.map?.setPaintProperty(activity.stravaid + '_geojson_line', 'line-color', 'transparent')
+  })
+
+  const selectedActivitesFeatures = activities.value
+    ?.filter((activity) => activity.start_date.includes(selectedYear))
+    .reduce(
+      (prev, activity) => {
+        prev.features.push((activity.geojson as any).features[0])
+        return prev
+      },
+      {
+        type: 'FeatureCollection',
+        features: [],
+      } as { type: string; features: Array<object> }
+    ) as GeoJSON.GeoJSON
+
+  fitBoundsMap(selectedActivitesFeatures)
 }
 </script>
 
