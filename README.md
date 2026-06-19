@@ -1,75 +1,25 @@
-# Nuxt Minimal Starter
+# CycleAtlas – A Cycling Route Visualizer
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+**As a passionate road cyclist and data junkie, I wanted to visualize all my cycling routes on a map and know exactly everywhere I've already been on a bike.**
 
-## Setup
+That's how CycleAtlas was born, a small app for visualizing all your cycling routes. It shows the routes and places you've already explored on two wheels. It also tracks the distances covered in each country, and for Austria, Belgium, Switzerland, Germany, France, and Italy, even broken down by region or canton.
 
-Make sure to install dependencies:
+User routes are downloaded via the Strava API and processed to calculate distances by country, region, or canton. Through Strava webhooks, new activities are also automatically added the moment they are uploaded to Strava.
 
-```bash
-# npm
-npm install
+## Demo
 
-# pnpm
-pnpm install
+Explore the demo here: [https://cycleatlas.cloud.guerraz.co](https://cycleatlas.cloud.guerraz.co/api/auth/demo). The sample data consists of cycling routes by Tadej Pogačar (UCI Road World Champion 2024 & 2025). Or sign in with your own Strava account to visualize your own rides.
 
-# yarn
-yarn install
+## Screenshots
 
-# bun
-bun install
-```
+![All cycling routes visible on a map](readme-images/Image01.jpg)
+All cycling routes visible on a map
 
-## Development Server
+![View details and statistics for a selected route](readme-images/Image02.jpg)
+View details and statistics for a selected route
 
-Start the development server on `http://localhost:3000`:
+![View details and statistics for all routes or filter by year](readme-images/Image03.jpg)
+View details and statistics for all routes or filter by year
 
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+![Live indicator that new activities are being processed in the background](readme-images/Image04.jpg)
+Live indicator that new activities are being processed in the background
