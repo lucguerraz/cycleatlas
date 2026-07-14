@@ -10,6 +10,8 @@ User routes are downloaded via the Strava API and processed to calculate distanc
 
 Explore the demo here: [https://cycleatlas.cloud.guerraz.co](https://cycleatlas.cloud.guerraz.co/api/auth/demo). The sample data consists of cycling routes by Tadej Pogačar (UCI Road World Champion 2024 & 2025). Or sign in with your own Strava account to visualize your own rides.
 
+> Unfortunately, Strava started charging for its API as of June 1, 2026, so you can't login with your own strava account for the time being. The demo mode remains fully functional.
+
 ## Screenshots
 
 ![All cycling routes visible on a map](readme-images/Image01.jpg)
