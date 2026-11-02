@@ -20,6 +20,15 @@ export default defineNuxtConfig({
       signingSecret: '',
       subscriptionId: '',
     },
+    auth: {
+      host: '',
+      allowlist: '',
+      signingSecret: '',
+    },
+    resend: {
+      apikey: '',
+      from: '',
+    },
   },
   vite: {
     server: {
@@ -29,6 +38,11 @@ export default defineNuxtConfig({
   nitro: {
     experimental: {
       websocket: true,
+    },
+  },
+  routeRules: {
+    '/verify': {
+      proxy: '/api/auth/verify',
     },
   },
   googleFonts: {

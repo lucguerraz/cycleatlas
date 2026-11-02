@@ -55,9 +55,11 @@ export type ActivityFeatureCollection = GeoJSON.FeatureCollection<
 >
 
 export interface Athlete {
-  stravaid: number
-  name: string
-  access_token: string
+  _id: ObjectId
+  email: string
+  apikey: string
+  token: string
   expires_at: number
-  refresh_token: string
+  processing_intital_data: Boolean
+  jobs: string[]
 }
