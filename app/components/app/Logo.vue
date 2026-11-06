@@ -68,7 +68,7 @@ const handleClose = () => {
       <ul class="flex flex-col">
         <li class="flex flex-col whitespace-nowrap border-b border-b-gray-500/10 p-4">
           {{ user?.name }}
-          <span class="text-xs text-gray-500">StravaID {{ user?.id }}</span>
+          <span class="text-xs text-gray-500">ID {{ user?.id }}</span>
         </li>
         <li class="border-b border-b-gray-500/10 p-1">
           <NuxtLink
@@ -79,13 +79,13 @@ const handleClose = () => {
             App Info
           </NuxtLink>
           <NuxtLink
-            to="https://www.strava.com/settings/apps"
+            to="https://connect.garmin.com/app/settings/personalApiToken"
             :external="true"
             target="_blank"
             class="block whitespace-nowrap rounded-md p-3 outline-none hover:bg-gray-500/10 focus-visible:bg-gray-500/10 focus-visible:ring-1 focus-visible:ring-black"
             @click="handleClose"
           >
-            Strava App Settings
+            Garmin Connect API Settings
           </NuxtLink>
         </li>
         <li class="border-b border-b-gray-500/10 p-1 last:border-0">

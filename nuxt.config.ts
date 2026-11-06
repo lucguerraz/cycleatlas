@@ -3,11 +3,6 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   runtimeConfig: {
-    oauth: {
-      strava: {
-        scope: 'read,activity:read_all',
-      },
-    },
     session: {
       cookie: {
         secure: process.env.NODE_ENV === 'production',
@@ -15,11 +10,6 @@ export default defineNuxtConfig({
       },
     },
     public: {},
-    stravaWebhook: {
-      verifyToken: '',
-      signingSecret: '',
-      subscriptionId: '',
-    },
     auth: {
       host: '',
       allowlist: '',

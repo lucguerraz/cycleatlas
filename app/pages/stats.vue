@@ -94,7 +94,7 @@ const handleYearChange = () => {
           new Intl.ListFormat('en-GB', {
             style: 'long',
             type: 'conjunction',
-          }).format(stats?.sources || ['Strava'])
+          }).format(stats?.sources || ['Garmin'])
         }}
       </PagesRideCreditCard>
     </div>
