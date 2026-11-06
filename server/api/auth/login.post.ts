@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
   const athlete = await AthleteSchema.findOne({ email })
 
   if (!athlete) {
-    if (!config.auth.allowlist.split(',').includes(email)) {
+    if (config.auth.allowlist !== '' && !config.auth.allowlist.split(',').includes(email)) {
       throw createError({
         statusCode: 400,
         statusMessage: 'Your email is not allowed to signup.',
