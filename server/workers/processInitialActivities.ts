@@ -7,7 +7,7 @@ import type { Athlete } from '~~/types'
 
 import { defineWorker } from '#processor'
 import queue from '#server/queues/processActivity'
-import { fetchStrava } from '#server/utils/workers/strava'
+import { fetchGarmin } from '#server/utils/workers/garmin'
 import { AthleteSchema } from '#server/models/athlete.schema'
 import { ActivitySchema } from '#server/models/activity.schema'
 
@@ -18,33 +18,30 @@ export default defineWorker<ProcessInitialActivitiesName, ProcessInitialActiviti
       const beginAt = Date.now()
 
       try {
-        const athleteStravaId = job.data.athleteStravaId
+        const athleteId = job.data.athleteId
 
-        // @ts-ignore
-        let athlete = (await AthleteSchema.findOne({ stravaid: athleteStravaId })) as Athlete
+        let athlete = (await AthleteSchema.findById(athleteId)) as Athlete
         if (!athlete) throw new Error('Athlete was not found')
 
-        const { activities: stravaActivities, newAthlete: newAthlete } = await fetch_activities(athlete)
+        const { activities: garminActivities, newAthlete: newAthlete } = await fetch_activities(athlete)
         athlete = newAthlete
 
-        for (const stravaActivity of stravaActivities) {
-          const existingActivity = await ActivitySchema.findOne({ stravaid: stravaActivity.id })
+        for (const garminActivity of garminActivities) {
+          const existingActivity = await ActivitySchema.findOne({ garminid: garminActivity.activityId })
           if (existingActivity) continue
 
           const jobUUID = crypto.randomUUID()
-          // @ts-ignore
-          await AthleteSchema.updateOne({ stravaid: athlete.stravaid }, { $push: { jobs: jobUUID } })
+          await AthleteSchema.updateOne({ _id: athlete._id }, { $push: { jobs: jobUUID } })
           await queue.add(
             'processActivity',
-            { athleteStravaId, activityStravaId: stravaActivity.id, stravaActivity },
+            { athleteId, activityGarminId: garminActivity.activityId, garminActivity },
             {
               jobId: jobUUID,
             }
           )
         }
 
-        // @ts-ignore
-        await AthleteSchema.updateOne({ stravaid: athlete.stravaid }, { processing_intital_data: false })
+        await AthleteSchema.updateOne({ _id: athlete._id }, { processing_intital_data: false })
 
         return { processedAt: beginAt, finishedProcessingAt: Date.now(), status: 'success' }
       } catch (err) {
@@ -60,24 +57,24 @@ const fetch_activities = async (athlete: Athlete) => {
   try {
     let newAthlete = athlete
     const activities = []
-    let currentPage = 1
+    let activityOffset = 0
     let lastPageActivityCount = 0
 
     do {
-      const { data: pageActivities, athlete: pageNewAthlete } = await fetchStrava(
-        `/athlete/activities?per_page=50&page=${currentPage}`,
+      const { data: reguestActivities, athlete: reguestNewAthlete } = await fetchGarmin(
+        `/activitylist-service/activities/search/activities?activityType=cycling&limit=50&start=${activityOffset}`,
         newAthlete
       )
 
-      activities.push(...pageActivities)
-      newAthlete = pageNewAthlete
+      activities.push(...reguestActivities)
+      newAthlete = reguestNewAthlete
 
-      currentPage++
-      lastPageActivityCount = pageActivities.length
+      lastPageActivityCount = reguestActivities.length
+      activityOffset = activityOffset + lastPageActivityCount
     } while (lastPageActivityCount !== 0)
 
     return {
-      activities: activities.filter((activity: any) => activity.type === 'Ride'),
+      activities: activities,
       newAthlete,
     }
   } catch (error) {

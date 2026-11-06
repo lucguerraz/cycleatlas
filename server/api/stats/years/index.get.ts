@@ -4,9 +4,9 @@ export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)
 
   try {
-    const oldestActivity = (await ActivitySchema.findOne({ athleteid: user.id }, { start_date: 1 }).sort({
+    const oldestActivity = (await ActivitySchema.findOne({ athlete: user.id }, { start_date: 1 }).sort({
       start_date: 1,
-    })) as unknown as Activity
+    })) as Activity
 
     if (!oldestActivity) {
       return []

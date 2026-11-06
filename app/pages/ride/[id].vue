@@ -46,8 +46,12 @@ const {
           </p>
           <p class="flex items-center gap-1 text-base font-medium text-gray-500">
             <LucideExternalLink :size="16" :strokeWidth="2.2" />
-            <NuxtLink :to="'https://strava.com/activities/' + activity?.stravaid" :external="true" target="_blank">
-              View on Strava
+            <NuxtLink
+              :to="'https://connect.garmin.com/app/activity/' + activity?.garminid"
+              :external="true"
+              target="_blank"
+            >
+              View on Garmin Connect
             </NuxtLink>
           </p>
         </div>

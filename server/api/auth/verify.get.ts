@@ -1,4 +1,5 @@
 import { jwtVerify } from 'jose'
+import queue from '#server/queues/processRefreshActivities'
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
@@ -30,10 +31,12 @@ export default defineEventHandler(async (event) => {
       return sendRedirect(event, '/login')
     }
 
+    await queue.add('processRefreshActivities', { athleteId: athlete._id })
+
     await setUserSession(event, {
       user: {
         name: athlete.email,
-        id: athlete.id,
+        id: athlete._id,
       },
       secure: {},
       loggedInAt: Date.now(),

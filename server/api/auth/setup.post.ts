@@ -84,10 +84,12 @@ export default defineEventHandler(async (event) => {
     jobs: [],
   }).save()
 
+  await queue.add('processInitialActivities', { athleteId: athlete._id })
+
   await setUserSession(event, {
     user: {
       name: athlete.email,
-      id: athlete.id,
+      id: athlete._id,
     },
     secure: {},
     loggedInAt: Date.now(),

@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     return await ActivitySchema.find(
-      { athleteid: user.id, geojson: { $exists: true, $not: { $eq: {} } } },
+      { athlete: user.id, geojson: { $exists: true, $not: { $eq: {} } } },
       inclusion
     ).sort({ start_date: -1 })
   } catch (error) {
