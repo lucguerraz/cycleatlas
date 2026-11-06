@@ -3,11 +3,6 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   runtimeConfig: {
-    oauth: {
-      strava: {
-        scope: 'read,activity:read_all',
-      },
-    },
     session: {
       cookie: {
         secure: process.env.NODE_ENV === 'production',
@@ -15,10 +10,14 @@ export default defineNuxtConfig({
       },
     },
     public: {},
-    stravaWebhook: {
-      verifyToken: '',
+    auth: {
+      host: '',
+      allowlist: '',
       signingSecret: '',
-      subscriptionId: '',
+    },
+    resend: {
+      apikey: '',
+      from: '',
     },
   },
   vite: {
@@ -29,6 +28,11 @@ export default defineNuxtConfig({
   nitro: {
     experimental: {
       websocket: true,
+    },
+  },
+  routeRules: {
+    '/verify': {
+      proxy: '/api/auth/verify',
     },
   },
   googleFonts: {

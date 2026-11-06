@@ -19,18 +19,29 @@ definePageMeta({
       <section>
         <h3 class="mb-1 text-2xl font-semibold">What data do we store?</h3>
         <p>
-          When you login via Strava we process all your activities, tracking distances in countries and regions using
-          the GPS data provided by Strava. We then save data related to the activity (such as title, time, distance,
-          elevation gain, speed, cadence, time, watts, heartrate and GPS) to our database. The data is only ever used to
-          be shown to you when you are logged in. To delete all your data from our servers, you can
+          When you enter your Garmin Connect API Key we process all your activities, tracking distances in countries and
+          regions using the GPS data provided by Garmin. We then save data related to the activity (such as title, time,
+          distance, elevation gain, speed, cadence, time, watts, heartrate and GPS) to our database. The data is only
+          ever used to be shown to you when you are logged in. You can revoke access to your Garmin data by deleting the
+          key in your
           <NuxtLink
-            to="https://www.strava.com/settings/apps"
+            to="https://connect.garmin.com/app/settings/personalApiToken"
             :external="true"
             target="_blank"
             rel="nofollow"
             class="text-[color-mix(in_oklch,theme(colors.primary)_90%,black)] hover:text-primary"
           >
-            revoke the CycleAtlas App from your Strava Account
+            Garmin Connect Settings.
+          </NuxtLink>
+          To delete all your data from our servers, you can
+          <NuxtLink
+            to="mailto:luc@guerraz.co?subject=CycleAtlas%20account%20deletion"
+            :external="true"
+            target="_blank"
+            rel="nofollow"
+            class="text-[color-mix(in_oklch,theme(colors.primary)_90%,black)] hover:text-primary"
+          >
+            email me at luc@guerraz.co
           </NuxtLink>
         </p>
       </section>

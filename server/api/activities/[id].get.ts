@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const inclusion = getInclusionsFromParam(event)
 
   try {
-    const activity = await ActivitySchema.findOne({ stravaid: event.context.params?.id, athleteid: user.id }, inclusion)
+    const activity = await ActivitySchema.findOne({ garminid: event.context.params?.id, athlete: user.id }, inclusion)
     if (!activity) {
       throw createError({
         statusCode: 404,

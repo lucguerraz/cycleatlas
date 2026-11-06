@@ -25,16 +25,16 @@ const handleClick = (id: number) => {
     <div v-else-if="activities?.length === 0" class="flex h-full w-full flex-col items-center justify-center">
       <p>No activities yet</p>
       <p class="text-center font-light text-gray-500">
-        We are either still processing your data, or we don't have permissions to view your activities on strava
+        We are either still processing your data, or we couldn't get your activities from Garmin
       </p>
     </div>
-    <div v-else class="flex h-full flex-col gap-6">
+    <div v-else class="flex h-full w-full flex-col gap-6">
       <ul class="flex flex-col gap-3">
-        <li v-for="activity in activities" :key="activity.stravaid">
+        <li v-for="activity in activities" :key="activity.garminid">
           <NuxtLink
-            :to="{ name: 'ride-id', params: { id: activity.stravaid } }"
+            :to="{ name: 'ride-id', params: { id: activity.garminid } }"
             class="flex flex-col gap-1.5 rounded-lg bg-white p-4 hover:bg-slate-50"
-            @click="handleClick(activity.stravaid)"
+            @click="handleClick(activity.garminid)"
           >
             <h2 class="text-xl">{{ activity.name }}</h2>
             <div class="flex flex-wrap gap-x-3 gap-y-1">

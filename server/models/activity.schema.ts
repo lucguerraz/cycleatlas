@@ -1,16 +1,19 @@
 import { defineMongooseModel } from '#nuxt/mongoose'
+import { Activity } from '~~/types'
+import { Types } from 'mongoose'
 
-export const ActivitySchema = defineMongooseModel({
+export const ActivitySchema = defineMongooseModel<Activity>({
   name: 'Activity',
   schema: {
-    stravaid: {
+    garminid: {
       type: Number,
       required: true,
       unique: true,
     },
-    athleteid: {
-      type: Number,
+    athlete: {
+      type: Types.ObjectId,
       required: true,
+      ref: 'Athlete',
     },
     name: {
       type: String,
@@ -36,10 +39,6 @@ export const ActivitySchema = defineMongooseModel({
       type: String,
       required: true,
     },
-    sport_type: {
-      type: String,
-      required: true,
-    },
     device_name: {
       type: String,
       required: true,
@@ -48,20 +47,12 @@ export const ActivitySchema = defineMongooseModel({
       type: String,
       required: true,
     },
-    trainer: {
-      type: Boolean,
-      required: true,
-    },
-    gear_id: {
-      type: String,
-      required: true,
-    },
     start_latlng: {
-      type: Array,
+      type: [Number, Number],
       required: true,
     },
     end_latlng: {
-      type: Array,
+      type: [Number, Number],
       required: true,
     },
     average_speed: {
@@ -73,6 +64,10 @@ export const ActivitySchema = defineMongooseModel({
       required: true,
     },
     average_watts: {
+      type: Number,
+      required: true,
+    },
+    normalized_watts: {
       type: Number,
       required: true,
     },
@@ -88,5 +83,8 @@ export const ActivitySchema = defineMongooseModel({
       type: Object,
       required: true,
     },
+  },
+  options: {
+    collection: 'garmin_activities',
   },
 })

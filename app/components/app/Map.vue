@@ -57,17 +57,17 @@ const handleZoom = (payload: any) => {
 }
 
 const handleClick = async (e: any) => {
-  const stravaid = e.features[0].layer.id.split('_')[0]
-  if (!stravaid) return
+  const garminid = e.features[0].layer.id.split('_')[0]
+  if (!garminid) return
 
-  fitBoundsActivity(stravaid)
-  await navigateTo('/ride/' + stravaid)
+  fitBoundsActivity(garminid)
+  await navigateTo('/ride/' + garminid)
 }
 
 const handleLoad = () => {
   if (route.name === 'ride-id') {
-    const stravaid = route.path.split('/')[2]
-    if (stravaid) fitBoundsActivity(stravaid)
+    const garminid = route.path.split('/')[2]
+    if (garminid) fitBoundsActivity(garminid)
     return
   }
 
@@ -89,18 +89,18 @@ const fitBoundsAll = () => {
   fitBoundsMap(allFeatures)
 }
 
-const animateAnts = (frameTime: number, stravaid: number, dashArraySequence: number[][], step: number) => {
-  if (!mapRef.map?.getLayer(stravaid + '_geojson_line_ants')) return
+const animateAnts = (frameTime: number, garminid: number, dashArraySequence: number[][], step: number) => {
+  if (!mapRef.map?.getLayer(garminid + '_geojson_line_ants')) return
 
   const newStep = Math.floor((frameTime / 100) % dashArraySequence.length)
 
   if (step != newStep) {
-    mapRef.map?.setPaintProperty(stravaid + '_geojson_line_ants', 'line-dasharray', dashArraySequence[newStep])
+    mapRef.map?.setPaintProperty(garminid + '_geojson_line_ants', 'line-dasharray', dashArraySequence[newStep])
   }
-  requestAnimationFrame((frameTime) => animateAnts(frameTime, stravaid, dashArraySequence, newStep))
+  requestAnimationFrame((frameTime) => animateAnts(frameTime, garminid, dashArraySequence, newStep))
 }
 
-const initAnts = (stravaid: string) => {
+const initAnts = (garminid: string) => {
   // https://docs.mapbox.com/mapbox-gl-js/example/animate-ant-path/
   const dashArraySequence = [
     [0, 8, 6],
@@ -124,30 +124,30 @@ const initAnts = (stravaid: string) => {
   }
 
   mapRef.map?.addLayer({
-    id: stravaid + '_geojson_line_ants',
+    id: garminid + '_geojson_line_ants',
     type: 'line',
-    source: stravaid + '_geojson',
+    source: garminid + '_geojson',
     paint: {
       'line-color': '#ffffff',
       'line-width': 1,
       'line-dasharray': dashArraySequence[0],
     },
   })
-  requestAnimationFrame((frameTime) => animateAnts(frameTime, parseInt(stravaid), dashArraySequence, 0))
-  antsLayerRef.value = stravaid + '_geojson_line_ants'
+  requestAnimationFrame((frameTime) => animateAnts(frameTime, parseInt(garminid), dashArraySequence, 0))
+  antsLayerRef.value = garminid + '_geojson_line_ants'
 }
 
-const fitBoundsActivity = (stravaid: string) => {
-  const activity = activities.value?.find((elem) => elem.stravaid === parseInt(stravaid))
+const fitBoundsActivity = (garminid: string) => {
+  const activity = activities.value?.find((elem) => elem.garminid === parseInt(garminid))
 
   if (!activity) return
 
-  if (mapRef.map?.getSource(stravaid + '_geojson')) {
-    initAnts(stravaid)
+  if (mapRef.map?.getSource(garminid + '_geojson')) {
+    initAnts(garminid)
   } else {
     const antsInterval = setInterval(() => {
-      if (mapRef.map?.getSource(stravaid + '_geojson')) {
-        initAnts(stravaid)
+      if (mapRef.map?.getSource(garminid + '_geojson')) {
+        initAnts(garminid)
         clearInterval(antsInterval)
       }
     }, 1000)
@@ -189,8 +189,8 @@ const fitBoundsMap = (geojson: GeoJSON.GeoJSON) => {
 
 const resetHideNonSelectedYearRides = () => {
   activities.value?.forEach((activity) => {
-    if (!mapRef.map?.getLayer(activity.stravaid + '_geojson_line')) return
-    mapRef.map?.setPaintProperty(activity.stravaid + '_geojson_line', 'line-color', '#0CBACD')
+    if (!mapRef.map?.getLayer(activity.garminid + '_geojson_line')) return
+    mapRef.map?.setPaintProperty(activity.garminid + '_geojson_line', 'line-color', '#0CBACD')
   })
 }
 const hideNonSelectedYearRides = (selectedYear: string) => {
@@ -200,8 +200,8 @@ const hideNonSelectedYearRides = (selectedYear: string) => {
 
   const rejectedActivities = activities.value?.filter((activity) => !activity.start_date.includes(selectedYear))
   rejectedActivities?.forEach((activity) => {
-    if (!mapRef.map?.getLayer(activity.stravaid + '_geojson_line')) return
-    mapRef.map?.setPaintProperty(activity.stravaid + '_geojson_line', 'line-color', 'transparent')
+    if (!mapRef.map?.getLayer(activity.garminid + '_geojson_line')) return
+    mapRef.map?.setPaintProperty(activity.garminid + '_geojson_line', 'line-color', 'transparent')
   })
 
   const selectedActivitesFeatures = activities.value
@@ -236,12 +236,12 @@ const hideNonSelectedYearRides = (selectedYear: string) => {
 
     <mgl-geo-json-source
       v-for="activity in activities"
-      :key="activity.stravaid + '_geojson'"
-      :source-id="activity.stravaid + '_geojson'"
+      :key="activity.garminid + '_geojson'"
+      :source-id="activity.garminid + '_geojson'"
       :data="activity.geojson"
     >
       <mgl-line-layer
-        :layer-id="activity.stravaid + '_geojson_line'"
+        :layer-id="activity.garminid + '_geojson_line'"
         :layout="layout"
         :paint="paint"
         @click="handleClick"

@@ -4,13 +4,11 @@
 
 That's how CycleAtlas was born, a small app for visualizing all your cycling routes. It shows the routes and places you've already explored on two wheels. It also tracks the distances covered in each country, and for Austria, Belgium, Switzerland, Germany, France, and Italy, even broken down by region or canton.
 
-User routes are downloaded via the Strava API and processed to calculate distances by country, region, or canton. Through Strava webhooks, new activities are also automatically added the moment they are uploaded to Strava.
+User routes are downloaded via the Garmin Connenect Personal API and processed to calculate distances by country, region, or canton.
 
 ## Demo
 
-Explore the demo here: [https://cycleatlas.cloud.guerraz.co](https://cycleatlas.cloud.guerraz.co/api/auth/demo). The sample data consists of cycling routes by Tadej Pogačar (UCI Road World Champion 2024 & 2025). Or sign in with your own Strava account to visualize your own rides.
-
-> Unfortunately, Strava started charging for its API as of June 1, 2026, so you can't login with your own strava account for the time being. The demo mode remains fully functional.
+Explore the demo here: [https://cycleatlas.cloud.guerraz.co](https://cycleatlas.cloud.guerraz.co/api/auth/demo). The sample data consists of cycling routes by Tadej Pogačar (UCI Road World Champion 2024 & 2025). Or sign up and enter your Garmin Connect Personal API Key to visualize your own rides.
 
 ## Screenshots
 

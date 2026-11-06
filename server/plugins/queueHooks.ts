@@ -8,7 +8,7 @@ export default defineNitroPlugin((nitroApp: NitroApp) => {
     const athlete = await AthleteSchema.findOne({ jobs: job.jobId })
     if (!athlete) return
 
-    nitroApp.io.to(athlete.stravaid + '').emit('active', { id: `${job.jobId}`, total: athlete.jobs })
+    nitroApp.io.to(athlete._id + '').emit('active', { id: `${job.jobId}`, total: athlete.jobs })
   })
 
   processActivityEvents.on('completed', async (job) => {
@@ -16,19 +16,19 @@ export default defineNitroPlugin((nitroApp: NitroApp) => {
     if (!athletePre) return
 
     const athlete = await AthleteSchema.findOneAndUpdate(
-      { stravaid: athletePre.stravaid },
+      { _id: athletePre._id },
       { $pull: { jobs: job.jobId } },
       { returnDocument: 'after' }
     )
 
-    nitroApp.io.to(athlete!.stravaid + '').emit('completed', { id: `${job.jobId}`, total: athlete!.jobs })
+    nitroApp.io.to(athlete!._id + '').emit('completed', { id: `${job.jobId}`, total: athlete!.jobs })
   })
 
   processActivityEvents.on('waiting', async (job) => {
     const athlete = await AthleteSchema.findOne({ jobs: job.jobId })
     if (!athlete) return
 
-    nitroApp.io.to(athlete.stravaid + '').emit('waiting', { id: `${job.jobId}`, total: athlete.jobs })
+    nitroApp.io.to(athlete._id + '').emit('waiting', { id: `${job.jobId}`, total: athlete.jobs })
   })
 })
 

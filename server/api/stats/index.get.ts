@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const year = yParam ? yParam : '*'
 
   try {
-    const options = { athleteid: user.id, geojson: { $exists: true, $not: { $eq: {} } } } as { [key: string]: any }
+    const options = { athlete: user.id, geojson: { $exists: true, $not: { $eq: {} } } } as { [key: string]: any }
 
     if (!isNaN(parseInt(year))) {
       options.start_date = {
@@ -35,7 +35,14 @@ export default defineEventHandler(async (event) => {
 
     const countries = sortObjectKeys(allActivities.reduce((obj, activity) => mergeDeep(obj, activity.countries), {}))
 
-    const sources = [...new Set([...allActivities.map((activity) => activity.device_name.split(' ')[0]), 'Strava'])]
+    const sources = [
+      ...new Set([
+        ...allActivities
+          .map((activity) => activity.device_name.split(' ')[0])
+          .map((str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()),
+        'Garmin',
+      ]),
+    ]
 
     return {
       distance,
